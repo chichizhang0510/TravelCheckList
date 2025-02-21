@@ -1,7 +1,39 @@
-import "./styles/App.css";
+import Logo from "./components/Logo.jsx";
+import Form from "./components/Form.jsx";
+import PackingList from "./components/PackingList.jsx";
+import Stats from "./components/Stats.jsx";
+import { useState } from "react";
+// import "./styles/App.css";
+
+const initialItems = [
+  { id: 1, description: "Passports", quantity: 2, packed: false },
+  { id: 2, description: "Socks", quantity: 12, packed: true },
+  { id: 3, description: "Charger", quantity: 2, packed: false },
+];
 
 function App() {
-  return <></>;
+  const [items, setItems] = useState(initialItems);
+
+  function handleAddItem(newItem) {
+    setItems((prevItems) => [...prevItems, newItem]);
+  }
+
+  function handleTogglePacked(itemId) {
+    setItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === itemId ? { ...item, packed: !item.packed } : item
+      )
+    );
+  }
+
+  return (
+    <div className="app">
+      <Logo />
+      <Form onAddItem={handleAddItem} />
+      <PackingList items={items} onTogglePacked={handleTogglePacked} />
+      <Stats items={items} />
+    </div>
+  );
 }
 
 export default App;
