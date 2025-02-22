@@ -30,6 +30,10 @@ function App() {
     setItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
   }
 
+  function clearList() {
+    setItems([]);
+  }
+
   return (
     <div className="app">
       <Logo />
@@ -38,6 +42,7 @@ function App() {
         items={items}
         onTogglePacked={handleTogglePacked}
         removeItem={removeItem}
+        clearList={clearList}
       />
       <Stats items={items} />
     </div>
