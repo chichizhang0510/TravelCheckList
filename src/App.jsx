@@ -7,7 +7,7 @@ import { useState } from "react";
 
 const initialItems = [
   { id: 1, description: "Passports", quantity: 2, packed: false },
-  { id: 2, description: "Socks", quantity: 12, packed: true },
+  { id: 2, description: "Socks", quantity: 12, packed: false },
   { id: 3, description: "Charger", quantity: 2, packed: false },
 ];
 
@@ -26,11 +26,19 @@ function App() {
     );
   }
 
+  function removeItem(itemId) {
+    setItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
+  }
+
   return (
     <div className="app">
       <Logo />
       <Form onAddItem={handleAddItem} />
-      <PackingList items={items} onTogglePacked={handleTogglePacked} />
+      <PackingList
+        items={items}
+        onTogglePacked={handleTogglePacked}
+        removeItem={removeItem}
+      />
       <Stats items={items} />
     </div>
   );
